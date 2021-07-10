@@ -55,6 +55,6 @@ class ZipCodeController extends Controller
     }
 
     public function import() {
-        ZipCode::all();
+        dd(ZipCode::all());
     }
 }

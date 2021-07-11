@@ -16,20 +16,20 @@ class CreateCodes extends Migration
         Schema::create('zip_codes', function (Blueprint $table) {
             $table->id();
             $table->string('d_codigo')->unique();
-            $table->string('d_asenta');
-            $table->string('d_tipo_asenta');
-            $table->string('D_mnpio');
-            $table->string('d_estado');
-            $table->string('d_ciudad');
-            $table->string('d_CP');
-            $table->string('c_estado');
-            $table->string('c_oficina');
-            $table->string('c_CP');
-            $table->string('c_tipo_asenta');
-            $table->string('c_mnpio');
-            $table->string('id_asenta_cpcons');
-            $table->string('d_zona');
-            $table->string('c_cve_ciudad');
+            $table->string('d_asenta')->nullable();
+            $table->string('d_tipo_asenta')->nullable();
+            $table->string('D_mnpio')->nullable();
+            $table->string('d_estado')->nullable();
+            $table->string('d_ciudad')->nullable();
+            $table->string('d_CP')->nullable();
+            $table->string('c_estado')->nullable();
+            $table->string('c_oficina')->nullable();
+            $table->string('c_CP')->nullable();
+            $table->string('c_tipo_asenta')->nullable();
+            $table->string('c_mnpio')->nullable();
+            $table->string('id_asenta_cpcons')->nullable();
+            $table->string('d_zona')->nullable();
+            $table->string('c_cve_ciudad')->nullable();
             $table->timestamps();
         });
     }

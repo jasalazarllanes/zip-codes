@@ -61,46 +61,17 @@ class ZipCodeController extends Controller
     /**
      * Import zipcodes
      */
-    private function read_file() 
+    public function import()
     {
         set_time_limit(0);
-
         $fileName = public_path('CPdescarga.txt');
-        $counter = 0;
-        
-        //d_codigo| 0
-        //d_asenta| 1
-        //d_tipo_asenta| 2
-        //D_mnpio| 3
-        //d_estado| 4
-        //d_ciudad| 5 
-        //d_CP| 6
-        //c_estado 7
-        //|c_oficina| 8
-        //c_CP| 9
-        //c_tipo_asenta| 10
-        //c_mnpio| 11
-        //id_asenta_cpcons| 12
-        //d_zona| 13
-        //c_cve_ciudad 14
 
-        foreach(file($fileName) as $line) {
+        foreach(file($fileName) as $key => $line) {
 
             // Convert the line to an array
             $data = explode('|', $line); 
 
-            yield $data;
-        } 
-    }
-
-    public function import()
-    {
-        // set_time_limit(0);
-
-        $counter = 0;
-        foreach($this->read_file() as $key => $data) {
-
-            if ($counter > 0) {
+            if ($key > 0) {
                 // Insert data
                 DB::table('zip_codes')->insert([
                     'd_codigo' => $data[0],
@@ -120,15 +91,14 @@ class ZipCodeController extends Controller
                     'c_cve_ciudad' => $data[14],
                 ]);
             }
-
-            $counter++;
-        }
+        } 
     }
 
+    
     public function get_codes() 
     {
-        $zipcodes = ZipCode::all();
+        $zipcodes = ZipCode::orderBy('id', 'DESC')->first();
 
-        dd($zipcodes);
+        echo $zipcodes->id;
     }
 }

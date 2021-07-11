@@ -94,10 +94,10 @@ class ZipCodeController extends Controller
         } 
     }
 
-    
+
     public function get_codes() 
     {
-        $zipcodes = ZipCode::orderBy('id', 'DESC')->first();
+        $zipcodes = DB::table('zip_codes')->orderBy('id', 'DESC')->first();
 
         echo $zipcodes->id;
     }

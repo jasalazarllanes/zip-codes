@@ -15,7 +15,7 @@ class CreateCodes extends Migration
     {
         Schema::create('zip_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('d_codigo')->unique();
+            $table->string('d_codigo');
             $table->string('d_asenta')->nullable();
             $table->string('d_tipo_asenta')->nullable();
             $table->string('D_mnpio')->nullable();

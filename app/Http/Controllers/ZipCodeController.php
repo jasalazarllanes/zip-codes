@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ZipCode;
+// use App\Models\ZipCode;
 use Illuminate\Support\Facades\DB;
 
 class ZipCodeController extends Controller
@@ -103,5 +103,6 @@ class ZipCodeController extends Controller
             ->where('d_codigo', '83296')->first();
 
         return response()->json($zipcodes);
+        // echo json_encode($zipcodes);
     }
 }

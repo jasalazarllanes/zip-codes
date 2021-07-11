@@ -88,27 +88,26 @@ class ZipCodeController extends Controller
             $data = explode('|', $line); 
 
             if ($counter > 0) {
+                $counter++;
                 // Insert data
-                ZipCode::create([
-                    'd_codigo' => $data[0],
-                    'd_asenta' => utf8_encode($data[1]),
-                    'd_tipo_asenta' => utf8_encode($data[2]),
-                    'D_mnpio' => utf8_encode($data[3]),
-                    'd_estado' => utf8_encode($data[4]),
-                    'd_ciudad' => utf8_encode($data[5]),
-                    'd_CP' => utf8_encode($data[6]),
-                    'c_estado' => $data[7],
-                    'c_oficina' => $data[8],
-                    'c_CP' => $data[9],
-                    'c_tipo_asenta' => $data[10],
-                    'c_mnpio' => $data[11],
-                    'id_asenta_cpcons' => $data[12],
-                    'd_zona' => $data[13],
-                    'c_cve_ciudad' => $data[14],
-                ]);
+                // ZipCode::create([
+                //     'd_codigo' => $data[0],
+                //     'd_asenta' => utf8_encode($data[1]),
+                //     'd_tipo_asenta' => utf8_encode($data[2]),
+                //     'D_mnpio' => utf8_encode($data[3]),
+                //     'd_estado' => utf8_encode($data[4]),
+                //     'd_ciudad' => utf8_encode($data[5]),
+                //     'd_CP' => utf8_encode($data[6]),
+                //     'c_estado' => $data[7],
+                //     'c_oficina' => $data[8],
+                //     'c_CP' => $data[9],
+                //     'c_tipo_asenta' => $data[10],
+                //     'c_mnpio' => $data[11],
+                //     'id_asenta_cpcons' => $data[12],
+                //     'd_zona' => $data[13],
+                //     'c_cve_ciudad' => $data[14],
+                // ]);
             }
-
-            $counter++;
         } 
     }
 }

@@ -61,7 +61,8 @@ class ZipCodeController extends Controller
      * Import zipcodes
      */
     public function import() {
-        echo "importin...";
+        set_time_limit(0);
+
         $fileName = public_path('CPdescarga.txt');
         $counter = 0;
         

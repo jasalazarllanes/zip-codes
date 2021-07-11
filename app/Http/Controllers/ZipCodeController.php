@@ -61,7 +61,8 @@ class ZipCodeController extends Controller
     /**
      * Import zipcodes
      */
-    private function read_file() {
+    private function read_file() 
+    {
         set_time_limit(0);
 
         $fileName = public_path('CPdescarga.txt');
@@ -94,7 +95,7 @@ class ZipCodeController extends Controller
 
     public function import()
     {
-        set_time_limit(0);
+        // set_time_limit(0);
 
         $counter = 0;
         foreach($this->read_file() as $key => $data) {
@@ -122,5 +123,12 @@ class ZipCodeController extends Controller
 
             $counter++;
         }
+    }
+
+    public function get_codes() 
+    {
+        $zipcodes = ZipCode::all();
+
+        dd($zipcodes);
     }
 }

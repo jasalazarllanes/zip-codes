@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('/import', [ZipCodeController::class, 'import'])->name('import');
+Route::get('/codes', [ZipCodeController::class, 'get_codes'])->name('codes');

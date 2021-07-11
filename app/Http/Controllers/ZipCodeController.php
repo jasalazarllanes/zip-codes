@@ -34,7 +34,7 @@ class ZipCodeController extends Controller
         //c_cve_ciudad 14
         foreach(file($fileName) as $line) {
             $data = explode('|', $line);
-
+            
             if ($counter > 0) {
                 $codes[$data[0]] = array(
                     'zip_code' => $data[0],
@@ -97,7 +97,10 @@ class ZipCodeController extends Controller
 
     public function get_codes() 
     {
-        $zipcodes = DB::table('zip_codes')->where('d_codigo', '83296')->get();
+        // 0, 1, 2, 3, 4, 6, 13
+        $zipcodes = DB::table('zip_codes')
+            ->select('id', 'd_codigo', 'd_asenta', 'd_tipo_asenta', 'D_mnpio', 'd_estado', 'd_CP', 'd_zona')
+            ->where('d_codigo', '83296')->first();
 
         return response()->json($zipcodes);
     }

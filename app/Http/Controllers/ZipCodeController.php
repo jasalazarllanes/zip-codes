@@ -97,8 +97,8 @@ class ZipCodeController extends Controller
 
     public function get_codes() 
     {
-        $zipcodes = DB::table('zip_codes')->orderBy('id', 'DESC')->first();
+        $zipcodes = DB::table('zip_codes')->where('d_codigo', '83296')->get();
 
-        echo $zipcodes->id;
+        return response()->json($zipcodes);
     }
 }

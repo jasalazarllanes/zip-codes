@@ -1,7 +1,7 @@
 ## Reto Backbone
 
 Para llevar a cabo el reto, lo primero que se hizo fue analizar la información que se encontraba en correos de México. 
-Una vez descargado el archivo txt, se realizó una prueba leyendo el archivo y armando la estructura solicitada en el reto, pero los tiempos de respuesta eran muy altos así que se optó por almacenar la información en una base de datos.
+Una vez descargado el archivo txt, se realizó una prueba en local, leyendo el archivo y armando la estructura solicitada en el reto, pero los tiempos de respuesta eran muy altos así que se optó por almacenar la información en una base de datos.
 
 Se hizo una migración con laravel para crear la estructura de la tabla, después se generó un script; que se encuentra en el controllador ZipCodeController/import, para leer e importar la información a la tabla correspondiente.
 

@@ -15,8 +15,8 @@ use App\Http\Controllers\ZipCodeController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::get('/zip-codes/{code}', [ZipcodeController::class, 'zip_codes']);

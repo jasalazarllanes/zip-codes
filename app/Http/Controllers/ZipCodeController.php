@@ -3,76 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Models\ZipCode;
 use Illuminate\Support\Facades\DB;
 
 class ZipCodeController extends Controller
 {
-    /**
-     * Get zip code
-     */
-    public function zip_codes($code)
-    {
-        $fileName = public_path('CPdescarga.txt');
-        $counter = 0;
-        $codes = array();
-        
-        //d_codigo| 0
-        //d_asenta| 1
-        //d_tipo_asenta| 2
-        //D_mnpio| 3
-        //d_estado| 4
-        //d_ciudad| 5 
-        //d_CP| 6
-        //c_estado 7
-        //|c_oficina| 8
-        //c_CP| 9
-        //c_tipo_asenta| 10
-        //c_mnpio| 11
-        //id_asenta_cpcons| 12
-        //d_zona| 13
-        //c_cve_ciudad 14
-        foreach(file($fileName) as $line) {
-            $data = explode('|', $line);
-            
-            if ($counter > 0) {
-                $codes[$data[0]] = array(
-                    'zip_code' => $data[0],
-                    'locality' => utf8_encode($data[4]),
-                    'federal_entity' => array(
-                        'name' => utf8_encode($data[4]),
-                        'code' => utf8_encode($data[6]),
-                    ),
-                    'settlements' => array(
-                        'name' => utf8_encode($data[1]),
-                        'zone_type' => $data[13],
-                        'settlement_type' => ['name' => $data[2]],
-                    ),
-                    'municipality' => ['name' => utf8_encode($data[3])]
-                );
-            }
-
-            $counter++;
-        } 
-
-        return response($codes[$code]);
-    }
 
     /**
-     * Import zipcodes
+     * Método para importar los códigos a la base de datos
+     * 
+     * @return void
      */
     public function import()
     {
+        // Se quita el límite de espera
         set_time_limit(0);
+
         $fileName = public_path('CPdescarga.txt');
 
+        // Lee el archivo línea por línea
         foreach(file($fileName) as $key => $line) {
 
-            // Convert the line to an array
+            // Convierte la línea a un arreglo
             $data = explode('|', $line); 
 
+            // Se inserta la información de la línea leída a la tabla, omitiendo los títulos
             if ($key > 0) {
-                // Insert data
                 DB::table('zip_codes')->insert([
                     'd_codigo' => $data[0],
                     'd_asenta' => utf8_encode($data[1]),
@@ -95,14 +50,43 @@ class ZipCodeController extends Controller
     }
 
 
-    public function get_codes() 
+    /**
+     * Obtiene el código postal solicitado
+     * 
+     * @param string $code
+     * @return mixed
+     */
+    public function zip_codes($code) 
     {
-        // 0, 1, 2, 3, 4, 6, 13
+        $codes = array();
+        $settlements = array();
+
+        // Consulta de código postal
         $zipcodes = DB::table('zip_codes')
             ->select('id', 'd_codigo', 'd_asenta', 'd_tipo_asenta', 'D_mnpio', 'd_estado', 'd_CP', 'd_zona')
-            ->where('d_codigo', '83296')->first();
+            ->where('d_codigo', $code)->get();
 
-        return response()->json($zipcodes);
-        // echo json_encode($zipcodes);
+
+        // Se arma el arreglo
+        foreach ($zipcodes as $code) {
+            $settlements[] = [
+                'name' => $code->d_asenta,
+                'zone_type' => $code->d_zona,
+                'settlement_type' => ['name' => $code->d_tipo_asenta]
+            ];
+
+            $codes = array(
+                'zip_code' => $code->d_codigo,
+                'locality' => $code->d_estado,
+                'federal_entity' => array(
+                    'name' => $code->d_estado,
+                    'code' => $code->d_CP,
+                ),
+                'settlements' => $settlements,
+                'municipality' => ['name' => $code->D_mnpio]
+            );
+        }
+
+        return response()->json($codes);
     }
 }

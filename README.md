@@ -7,4 +7,4 @@ Una vez descargado el archivo txt, se realizó una prueba en local, leyendo el a
 
 - Una vez teníendo la tabla con toda la información del archivo txt, se genera el script para leer la información de esta tabla en el método ZipCodeController/zip_codes, recorriendo todos los registros y creando la estructura solicitada en el reto.
 
-Los inconvenientes presentados fue que no se contaba con un servidor para hospedar el proyecto, se realizarón pruebas en servidores gratuitos como heroku y alwaysdata. Se utilizó una base de datos en postgresql para almacenar la información, ya que se obtuvieron mejores resultados al compararlos con una base de datos en MySql.
+Los inconvenientes presentados fue que no se contaba con un servidor para hospedar el proyecto. Se realizarón pruebas en servidores gratuitos como heroku y alwaysdata y se utilizó una base de datos en postgresql para almacenar la información, ya que se obtuvieron mejores resultados al compararlos con una base de datos en MySql. El otro detalle fue que en los archivos de correos de México no venía el código del estado.

@@ -63,7 +63,9 @@ class ZipCodeController extends Controller
 
         // Consulta de código postal
         $zipcodes = DB::table('zip_codes')
-            ->select('id', 'd_codigo', 'd_asenta', 'd_ciudad', 'd_tipo_asenta', 'D_mnpio', 'd_estado', 'd_CP', 'd_zona')
+            ->select(
+                'id', 'd_codigo', 'd_asenta', 'd_ciudad', 'd_tipo_asenta', 'D_mnpio', 
+                'c_mnpio', 'd_estado', 'c_estado', 'd_CP', 'd_zona')
             ->where('d_codigo', $code)->get();
 
 
@@ -79,14 +81,15 @@ class ZipCodeController extends Controller
                 'zip_code' => $code->d_codigo,
                 'locality' => $code->d_ciudad,
                 'federal_entity' => array(
+                    'key' => $code->c_estado,
                     'name' => $code->d_estado,
                     'code' => $code->d_CP,
                 ),
                 'settlements' => $settlements,
-                'municipality' => ['name' => $code->D_mnpio]
+                'municipality' => ['key' => $code->c_mnpio, 'name' => $code->D_mnpio]
             );
         }
 
-        return response()->json($codes);
+        return response($codes);
     }
 }

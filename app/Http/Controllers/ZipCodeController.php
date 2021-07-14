@@ -64,14 +64,15 @@ class ZipCodeController extends Controller
         // Consulta de código postal
         $zipcodes = DB::table('zip_codes')
             ->select(
-                'id', 'd_codigo', 'd_asenta', 'd_ciudad', 'd_tipo_asenta', 'D_mnpio', 
-                'c_mnpio', 'd_estado', 'c_estado', 'd_CP', 'd_zona')
+                'id', 'd_codigo', 'd_asenta', 'd_ciudad', 'd_tipo_asenta', 'D_mnpio', 'id_asenta_cpcons',
+                'c_mnpio', 'd_estado', 'c_estado', 'c_CP', 'd_zona')
             ->where('d_codigo', $code)->get();
 
 
         // Se arma el arreglo
         foreach ($zipcodes as $code) {
             $settlements[] = [
+                'key' => $code->id_asenta_cpcons,
                 'name' => $code->d_asenta,
                 'zone_type' => $code->d_zona,
                 'settlement_type' => ['name' => $code->d_tipo_asenta]
@@ -83,7 +84,7 @@ class ZipCodeController extends Controller
                 'federal_entity' => array(
                     'key' => $code->c_estado,
                     'name' => $code->d_estado,
-                    'code' => $code->d_CP,
+                    'code' => $code->c_CP,
                 ),
                 'settlements' => $settlements,
                 'municipality' => ['key' => $code->c_mnpio, 'name' => $code->D_mnpio]
